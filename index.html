@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css.css">
+</head>
+<body>
+    
+    <div id="app">
+        <h1>Turn of {{ mode }}</h1>
+        <div style="display: flex;" v-for='(row, rowIndex) in table'>
+            <div v-for='(col, colIndex) in row' class="col" @click='fill(rowIndex, colIndex)'>
+                {{ col }}
+            </div>
+        </div>
+        <button @click='restart()'>Restart</button>
+        <h1 v-on='win()'>Winner is {{ exodus }}</h1>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script>
+        var app = new Vue({
+            el:'#app',
+            data: {
+                table: [],
+                mode: 'X',
+                exodus: ''
+            },
+            methods: {
+                fill(rowIndex, colIndex){
+                    let row = this.table[rowIndex];
+                    if(!row[colIndex]) { // this string is empty
+                    row[colIndex] = this.mode;
+                    this.table.push()
+                    if(this.mode == 'X')
+                        this.mode = 'O';
+                    else
+                        this.mode = 'X'; 
+                    }
+                },
+                restart(){
+                    this.table = []
+                    this.mode = 'X'
+                    for(let rowIndex = 0; rowIndex < 3; rowIndex++) {
+                    this.table.push([]);
+                    let row = this.table[rowIndex];
+                    for(let colIndex = 0; colIndex < 3; colIndex++) {
+                        row.push('');
+                    }
+                }
+                },
+                win(rowIndex, colIndex){
+                    if(this.table[0][0] == 'O' && this.table[0][1] == 'O'  && this.table[0][2] == 'O')
+                        this.exodus = 'O';
+                    else if(this.table[0][0] == 'X' && this.table[0][1] == 'X'  && this.table[0][2] == 'X')
+                        this.exodus = 'X';
+                    else if(this.table[1][0] == 'X' && this.table[1][1] == 'X'  && this.table[1][2] == 'X')
+                        this.exodus = 'X';
+                    else if(this.table[1][0] == 'O' && this.table[1][1] == 'O'  && this.table[1][2] == 'O')
+                        this.exodus = 'O';
+                    else if(this.table[2][0] == 'O' && this.table[2][1] == 'O'  && this.table[2][2] == 'O')
+                        this.exodus = 'O';
+                    else if(this.table[2][0] == 'X' && this.table[2][1] == 'X'  && this.table[2][2] == 'X')
+                        this.exodus = 'X';
+                    else if(this.table[0][0] == 'O' && this.table[1][1] == 'O'  && this.table[2][2] == 'O')
+                        this.exodus = 'O'
+                    else if(this.table[2][0] == 'O' && this.table[1][1] == 'O'  && this.table[0][2] == 'O')
+                        this.exodus = 'O'
+                    else if(this.table[0][0] == 'X' && this.table[1][1] == 'X'  && this.table[2][2] == 'X')
+                        this.exodus = 'X'
+                    else if(this.table[2][0] == 'X' && this.table[1][1] == 'X'  && this.table[0][2] == 'X')
+                        this.exodus = 'X'
+                    else if(this.table[0][1] == 'X' && this.table[1][1] == 'X'  && this.table[2][1] == 'X')
+                        this.exodus = 'X'
+                    else if(this.table[0][1] == 'O' && this.table[1][1] == 'O'  && this.table[2][1] == 'O')
+                        this.exodus = 'O'
+                    else if(this.table[1][0] == 'O' && this.table[1][1] == 'O'  && this.table[1][2] == 'O')
+                        this.exodus = 'O'
+                    else if(this.table[1][0] == 'X' && this.table[1][1] == 'X'  && this.table[1][2] == 'X')
+                        this.exodus = 'X'
+                    else if(this.table[0][2] == 'X' && this.table[1][2] == 'X'  && this.table[2][2] == 'X')
+                        this.exodus = 'X'
+                    else if(this.table[0][2] == 'O' && this.table[1][2] == 'O'  && this.table[2][2] == 'O')
+                        this.exodus = 'O'
+                    else if(this.table[0][0] == 'O' && this.table[1][0] == 'O'  && this.table[2][0] == 'O')
+                        this.exodus = 'O'
+                    else if(this.table[0][0] == 'X' && this.table[1][0] == 'X'  && this.table[2][0] == 'X')
+                        this.exodus = 'X' 
+                    else
+                        this.exodus = '';
+                }
+            },
+            mounted() {
+                for(let rowIndex = 0; rowIndex < 3; rowIndex++) {
+                    this.table.push([]);
+                    let row = this.table[rowIndex];
+                    for(let colIndex = 0; colIndex < 3; colIndex++) {
+                        row.push('');
+                    }
+                }
+            },
+        })
+    </script>
+</body>
+</html>
